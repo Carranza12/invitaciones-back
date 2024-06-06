@@ -20,6 +20,9 @@ export class User {
   businessType: string;
 
   @Prop( { required: true } )
+  nextPaymentDate: string;
+
+  @Prop( { required: true } )
   isActivePlanning: boolean;
 }
 
