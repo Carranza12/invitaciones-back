@@ -27,7 +27,6 @@ import {
    
   
     @Post('register')
-    //@UseGuards(AuthGuard)
     async registerUser(
       @Req() request: Request,
     ): Promise<{ message: string }> {

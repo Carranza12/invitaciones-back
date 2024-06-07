@@ -208,19 +208,11 @@ import {
     async createNewUser(req) {
       try {
         const { body } = req;
-        /* const currentUser = await this.getUserById(req.user.userId); */
-  
-        /* if (currentUser.role !== 'superAdmin') {
-          throw new UnauthorizedException(
-            'No tienes permiso para registrar nuevos usuarios.',
-          );
-        } */
-        console.log('body:', body);
+       
         const { password } = body;
   
         const hash = await bcrypt.hash(password, 10);
   
-   
         const userModelResult = await this.userModel.create({
           ...body,
           password: hash
