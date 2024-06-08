@@ -72,9 +72,9 @@ export class OwnerService {
           subject: 'Bienvenido a tuNegocio',
           html: `<p>
           ¡Hola ${body.name} ${body.last_name}!
-          Todo el equipo de tuNegocio está muy emocionado por trabajar en conjunto con tu emprendimiento ${body.bussinessName} y por supuesto, también contigo.
-          Para seguir con el proceso de registro, es necesario que configures tu cuenta lo más pronto posible.
-          Temporalmente, te hemos asignado la siguiente contraseña: <strong>${password}</strong>.
+          Todo el equipo de tuNegocio está muy emocionado por trabajar en conjunto con tu emprendimiento ${body.bussinessName} y por supuesto, también contigo. <br/>
+          Para seguir con el proceso de registro, es necesario que configures tu cuenta lo más pronto posible.<br/>
+          te hemos asignado la siguiente contraseña: <strong>${password}</strong>.
           Por favor, da clic al siguiente enlace para cambiarla y continuar con el proceso:
           </p>
           <a href="#">Cambiar contraseña</a>
@@ -125,10 +125,23 @@ export class OwnerService {
 
       const hash = await bcrypt.hash(newPassword, 10);
 
-      await this.userModel.findOneAndUpdate(
-        { email },
-        { password: hash },
-      );
+      
+    await this.userModel.findOneAndUpdate(
+      { email },
+      { password: hash },
+    );
+
+    const userModel = await this.userModel.findOne({ email });
+    if (!userModel) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+
+    await this.ownerModel.findOneAndUpdate(
+      { user_id: userModel._id },
+      { passwordReset: true },
+    );
+    
+
     } catch (error) {
       throw new NotFoundException('Token inválido o expirado');
     }

@@ -25,6 +25,9 @@ export class Owner {
   
   @Prop( { required: true } )
   cancelFree30Days: boolean;
+
+  @Prop( { required: true } )
+  passwordReset: boolean;
 }
 
 export type OwnerDocument = Owner & Document;
