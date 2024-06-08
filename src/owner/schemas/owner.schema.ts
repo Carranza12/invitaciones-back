@@ -17,7 +17,7 @@ export class Owner {
   planning_id: string;
 
   @Prop( { required: true } )
-  nextPaymentDate: string;
+  nextPaymentDate: Date;
 
   @Prop( { required: true } )
   isActivePlanning: boolean;

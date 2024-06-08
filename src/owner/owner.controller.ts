@@ -25,11 +25,11 @@ import {
   
    
     @Post('create')
-    async registerUser(
+    async register(
       @Req() request: Request,
     ): Promise<{ message: string }> {
       try {
-        return await this._ownerSvc.createNew(request);
+        return await this._ownerSvc.register(request);
       } catch (error) {
         console.log('error:', error);
         throw new UnauthorizedException(

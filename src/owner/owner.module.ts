@@ -4,11 +4,24 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { OwnerSchema } from './schemas/owner.schema';
 import { OwnerController } from './owner.controller';
 import { OwnerService } from './owner.service';
+import { secretKey } from 'src/auth/config';
+import { UserSchema } from 'src/auth/schemas/user.schema';
+import { CompanySchema } from 'src/company/schemas/company.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Owner', schema: OwnerSchema }]),
     JwtModule.register({
-      secret: '',
+      secret: secretKey.secret,
+      signOptions: { expiresIn: '8h' },
+    }),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    JwtModule.register({
+      secret: secretKey.secret,
+      signOptions: { expiresIn: '8h' },
+    }),
+    MongooseModule.forFeature([{ name: 'Company', schema: CompanySchema }]),
+    JwtModule.register({
+      secret: secretKey.secret,
       signOptions: { expiresIn: '8h' },
     }),
   ],
@@ -16,6 +29,6 @@ import { OwnerService } from './owner.service';
   providers: [OwnerService],
   exports: [OwnerService],
 })
-export class AuthModule implements NestModule {
+export class OwnerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {}
 }

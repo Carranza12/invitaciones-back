@@ -217,10 +217,10 @@ import {
           ...body,
           password: hash
         });
-        return { message: 'Usuario registrado con exito!' };
+        return { message: 'Usuario registrado con exito!', type: "success", item: userModelResult };
       } catch (error) {
         console.log('error:', error);
-        throw new Error('An error occurred while registering the user');
+        return { message: 'Ocurrio un error: ' + error, type: "error", item: {} };
       }
     }
   
