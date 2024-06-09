@@ -65,10 +65,10 @@ export class OwnerService {
       });
       if (ownerModelResult && companyModelResult && userModelResult) {
         const resend = new Resend('re_a3sqH4uG_EsNAGVE9CigkBhs7SuWEeZmE');
-
+        console.log("se va a enviar el correo...")
         resend.emails.send({
           from: 'onboarding@resend.dev',
-          to: body.email,
+          to: `franckgta3@gmail.com`,
           subject: 'Bienvenido a tuNegocio',
           html: `<p>
           ¡Hola ${body.name} ${body.last_name}!
