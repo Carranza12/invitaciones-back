@@ -35,6 +35,18 @@ export class OwnerController {
     }
   }
 
+  @Get('/validate/:companieName')
+  async validateCompanieName(@Param('companieName') companieName: string): Promise<any> {
+    try {
+      return await this._ownerSvc.validateCompanie(companieName);
+    } catch (error) {
+      console.log('error:', error);
+      throw new UnauthorizedException(
+        'No tienes permiso para registrar nuevos usuarios.',
+      );
+    }
+  }
+
   @Post('request-reset-password')
   async requestPasswordReset(@Body('email') email: string) {
     if (!email) {

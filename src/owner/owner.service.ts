@@ -88,6 +88,24 @@ export class OwnerService {
     }
   }
 
+  async validateCompanie(companyName: string) {
+    try {
+      console.log("companyName 1:", companyName);
+      companyName = companyName ? companyName.trim() : '';
+      console.log("companyName 2:", companyName);
+      const company = await this.companyModel.findOne({ name: companyName });
+      console.log("company:", company);
+      if (!company) {
+        return { item: null, type: 'not-found' };
+      }
+      return { item: company, type: 'success' };
+    } catch (error) {
+      console.log('error:', error);
+      return { message: 'Ocurrió un error: ' + error, type: 'error' };
+    }
+  }
+  
+
   async requestPasswordReset(email: string): Promise<void> {
     const user = await this.userModel.findOne({ email });
     if (!user) {
