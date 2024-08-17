@@ -13,6 +13,8 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { categoryModule } from './category/category.module';
+import { InvitationModule } from './invitation/invitation.module';
+import { InvitationService } from './invitation/invitation.service';
 
 @Module({
   imports: [
@@ -30,6 +32,7 @@ import { categoryModule } from './category/category.module';
     AuthModule,
     OwnerModule,
     CompanyModule,
+    InvitationModule,
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', 'src', 'files'),
       serveRoot: '/src/files',

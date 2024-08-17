@@ -24,9 +24,7 @@ import {
   
     async loginUser(email: string, password: string): Promise<any> {
       try {
-        console.log('email:', email);
         const user = await this.userModel.findOne({ email });
-        console.log('USUARIO ENCONTRADO:', user);
         if (!user) {
           throw new NotFoundException('User not found');
         }

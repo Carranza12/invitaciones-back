@@ -12,7 +12,7 @@ export class FileService {
 
     try {
       if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true }); // Crear directorios recursivamente si es necesario
+        fs.mkdirSync(uploadDir, { recursive: true });
       }
       await fs.promises.writeFile(filePath, file.buffer);
       return filePath;
