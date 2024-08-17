@@ -7,6 +7,12 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { OwnerModule } from './owner/owner.module';
 import { CompanyModule } from './company/company.module';
+import { SubcategoryModule } from './subcategory/subcategory.module';
+import { FileService } from './services/file/file.service';
+import { MulterModule } from '@nestjs/platform-express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
+import { categoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -14,12 +20,22 @@ import { CompanyModule } from './company/company.module';
       envFilePath: '.env',
       isGlobal: true,
     }),
+    MulterModule.register({
+      dest: './files',
+    }),
+
     MongooseModule.forRoot(env.MONGO_URI),
+    SubcategoryModule,
+    categoryModule,
     AuthModule,
     OwnerModule,
-    CompanyModule
+    CompanyModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', 'src', 'files'),
+      serveRoot: '/src/files',
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FileService],
 })
 export class AppModule {}
